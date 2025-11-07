@@ -14,19 +14,6 @@ The tool processes any video file, extracts its audio track, transcribes the spe
 
 ---
 
-## 📑 Table of Contents
-
-1. [Features](#features)
-2. [Installation](#installation)
-3. [Usage](#usage)
-4. [Configuration](#configuration)
-5. [Example](#example)
-6. [Output](#output)
-7. [Troubleshooting](#troubleshooting)
-8. [Contributors](#contributors)
-9. [License](#license)
-
----
 
 ## 🚀 Features
 
@@ -40,18 +27,25 @@ The tool processes any video file, extracts its audio track, transcribes the spe
 
 ## ⚙️ Installation
 
-### Prerequisites
+### 1. Clone the repository
+```bash
+git clone https://github.com/your-username/subtitle-generator.git
+cd subtitle-generator
+```
 
-Make sure you have:
-- **Python 3.8+**
-- **FFmpeg** installed on your system
-- Access to the **Whisper** model (via OpenAI or the `openai-whisper` library)
+### 2. Create a virtual environment (recommended)
+```bash
+python -m venv venv
+source venv/bin/activate   # for Linux/Mac
+venv\Scripts\activate      # for Windows
+```
 
-### Install Dependencies
+### 3. Install dependencies
 
 ```bash
-pip install ffmpeg-python openai-whisper
+pip install -r requirements.txt
 ```
+
 
 If you don’t have FFmpeg installed:
 - On macOS: `brew install ffmpeg`
@@ -68,6 +62,15 @@ Run the script:
 
 ```bash
 python subtile_generator.py --input path/to/video.mp4 --output subtitles.srt
+```
+
+or
+- maully store the vedio in the same directory and give the path to the generate_subtitles.py file.
+
+
+
+```bash
+python main.py
 ```
 
 ### Example Command Breakdown
