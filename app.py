@@ -13,13 +13,7 @@ st.write("Upload a video, choose model accuracy, and auto-generate subtitles in 
 # Model selection
 model_choice = st.selectbox(
     "Select Whisper Model (accuracy vs speed):",
-    [
-        "tiny",       # fastest, least accurate
-        "base",       # balanced
-        "small",      # good accuracy
-        "medium",     # higher accuracy
-        "large"       # best accuracy, slowest
-    ],
+    ["tiny", "base", "small", "medium", "large"],
     index=1
 )
 
@@ -30,7 +24,7 @@ if uploaded_video:
     with tempfile.NamedTemporaryFile(delete=False, suffix=".mp4") as temp_video:
         temp_video.write(uploaded_video.read())
         video_path = temp_video.name
-    
+
     st.video(video_path)
     st.info("Video uploaded successfully ✅")
 
@@ -46,31 +40,28 @@ if uploaded_video:
         st.write("Transcribing audio... please wait 🔊")
         result = model.transcribe(audio_path)
 
-        # Generate .srt
+        # Generate .srt file
         srt_path = os.path.splitext(video_path)[0] + ".srt"
+        subtitles_text = ""
+
+        def srt_timestamp(seconds):
+            millis = int((seconds - int(seconds)) * 1000)
+            h, m, s = int(seconds // 3600), int((seconds % 3600) // 60), int(seconds % 60)
+            return f"{h:02d}:{m:02d}:{s:02d},{millis:03d}"
+
         with open(srt_path, "w", encoding="utf-8") as srt_file:
             for i, seg in enumerate(result["segments"], start=1):
                 start, end, text = seg["start"], seg["end"], seg["text"].strip()
-
-                def srt_timestamp(seconds):
-                    millis = int((seconds - int(seconds)) * 1000)
-                    h, m, s = int(seconds // 3600), int((seconds % 3600) // 60), int(seconds % 60)
-                    return f"{h:02d}:{m:02d}:{s:02d},{millis:03d}"
-
                 srt_line = f"{i}\n{srt_timestamp(start)} --> {srt_timestamp(end)}\n{text}\n\n"
-                srt_file.write(f"{i}\n")
-                srt_file.write(f"{srt_timestamp(start)} --> {srt_timestamp(end)}\n")
-                srt_file.write(f"{text}\n\n")
+                srt_file.write(srt_line)
                 subtitles_text += srt_line
 
-
         st.success("✅ Subtitles generated successfully!")
-        
+
         # --- Display Subtitles Preview ---
         st.subheader("📝 Generated Subtitles Preview")
         st.text_area("Subtitle Output", subtitles_text, height=400)
 
-        
         # Provide download link
         with open(srt_path, "rb") as f:
             st.download_button(
@@ -80,7 +71,10 @@ if uploaded_video:
                 mime="text/plain"
             )
 
-        # Cleanup temp files after download
-        os.remove(audio_path)
-        os.remove(video_path)
-        os.remove(srt_path)
+        # Cleanup (safe after the user has had a chance to download)
+        try:
+            os.remove(audio_path)
+            os.remove(video_path)
+            os.remove(srt_path)
+        except Exception:
+            pass
