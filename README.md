@@ -1,1 +1,1 @@
-"# Subtitle-Generator-" 
+# Subtitle-Generator
