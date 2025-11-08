@@ -1,6 +1,6 @@
-# Subtile Generator
+# Subtitle Generator
 
-Subtile Generator is a Python-based tool that automatically extracts audio from videos and generates accurate subtitles using OpenAI’s Whisper model.  
+Subtitle Generator is a Python-based tool that automatically extracts audio from videos and generates accurate subtitles using OpenAI’s Whisper model.  
 It provides an easy way to create `.srt` subtitle files for your videos with minimal setup.
 
 ---
@@ -8,7 +8,7 @@ It provides an easy way to create `.srt` subtitle files for your videos with min
 ## 🧠 Introduction
 
 Creating subtitles manually can be time-consuming.  
-**Subtile Generator** simplifies this process by leveraging **FFmpeg** for audio extraction and **Whisper**, OpenAI’s speech recognition model, for automatic subtitle generation.
+**Subtitle Generator** simplifies this process by leveraging **FFmpeg** for audio extraction and **Whisper**, OpenAI’s speech recognition model, for automatic subtitle generation.
 
 The tool processes any video file, extracts its audio track, transcribes the speech, and outputs a synchronized `.srt` subtitle file.
 
@@ -61,7 +61,7 @@ If you don’t have FFmpeg installed:
 Run the script:
 
 ```bash
-python subtile_generator.py --input path/to/video.mp4 --output subtitles.srt
+python subtitle_generator.py --input path/to/video.mp4 --output subtitles.srt
 ```
 
 or
@@ -97,7 +97,7 @@ Optional parameters you can include:
 ## 🧩 Example
 
 ```bash
-python subtile_generator.py --input sample_video.mp4 --output sample_subtitles.srt --model small
+python subtitle_generator.py --input sample_video.mp4 --output sample_subtitles.srt --model small
 ```
 
 **Output:**
@@ -118,7 +118,7 @@ Example excerpt:
 ```
 1
 00:00:00,000 --> 00:00:03,500
-Welcome to the Subtile Generator demo.
+Welcome to the Subtitle Generator demo.
 
 2
 00:00:03,600 --> 00:00:07,200
@@ -139,7 +139,7 @@ This tool automatically creates subtitles using Whisper.
 
 ## 👥 Contributors
 
-- **Maniteja Gaddam** — Creator and maintainer of Subtile Generator
+- **Maniteja Gaddam** — Creator and maintainer of Subtitle Generator
 
 Contributions are welcome! Feel free to open a pull request or submit issues.
 
